@@ -1,0 +1,25 @@
+<div class="example-form">
+<form [formGroup]="registerForm">
+<!-- Emp Name START -->
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="Employee Name" formControlName="employeeName" />
+    <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
+ <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+    <mat-error *ngIf="!registerForm.controls.employeeName?.required">
+      Employee Number is <strong>required</strong>
+    </mat-error>
+</mat-form-field>
+<!-- Emp Name END -->
+<!-- Emp Number START -->
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="Employee Number" formControlName="employeeNumber" />
+    <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
+ <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+    <mat-error *ngIf="!registerForm.controls.employeeNumber?.required">
+      Employee Number is <strong>required</strong>
+    </mat-error>
+</mat-form-field>
+<!-- Emp Number END -->
+<input type="submit" class="btn btn-primary" value="Submit" />
+</form>
+</div>
