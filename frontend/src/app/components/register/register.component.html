@@ -1,3 +1,5 @@
+<div class="form-class">
+<h2>SIGN UP</h2>
 <form [formGroup]="registerForm" class="example-form">
 <!-- Emp Name START -->
 <mat-form-field class="example-full-width">
@@ -5,10 +7,14 @@
     <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
  <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
     <mat-error *ngIf="!registerForm.controls.employeeName?.required">
-      Employee Number is <strong>required</strong>
+      Employee Name is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="!registerForm.controls.employeeName?.minLength">
+      Minimum Length : 13
     </mat-error>
 </mat-form-field>
 <!-- Emp Name END -->
+
 <!-- Emp Number START -->
 <mat-form-field class="example-full-width">
     <input matInput placeholder="Employee Number" formControlName="employeeNumber">
@@ -19,5 +25,51 @@
     </mat-error>
 </mat-form-field>
 <!-- Emp Number END -->
+
+<!-- Emp Password START -->
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="Password" formControlName="employeePassword">
+    <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
+ <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+    <mat-error *ngIf="!registerForm.controls.employeePassword?.required">
+      Employee Password is <strong>required</strong>
+    </mat-error>
+</mat-form-field>
+<!-- Emp Password END -->
+
+<!-- Emp Designation START -->
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="Designation" formControlName="employeeDesignation">
+    <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
+ <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+    <mat-error *ngIf="!registerForm.controls.employeeDesignation?.required">
+      Employee Designation is <strong>required</strong>
+    </mat-error>
+</mat-form-field>
+<!-- Emp Designation END -->
+
+<!-- Emp Service Line START -->
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="Service Line" formControlName="employeeServiceLine">
+    <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
+ <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+    <mat-error *ngIf="!registerForm.controls.employeeServiceLine?.required">
+      Employee Service Line is <strong>required</strong>
+    </mat-error>
+</mat-form-field>
+<!-- Emp Service Line END -->
+
+<!-- Emp Role START -->
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="Role" formControlName="employeeRole">
+    <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
+ <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+    <mat-error *ngIf="!registerForm.controls.employeeRole?.required">
+      Employee Role <strong>required</strong>
+    </mat-error>
+</mat-form-field>
+<!-- Emp Role END -->
+
 <input type="submit" class="btn btn-primary" value="Submit" />
 </form>
+</div>
