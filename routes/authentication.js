@@ -1,5 +1,5 @@
-
-
+const Employee = require('../models/employee');
+const config = require('../config/db.js');
  module.exports=(router)=>{
    router.post('/register', (req,res) => {
      //req.body.employeeName
@@ -26,7 +26,49 @@
                if(!req.body.employeeRole){
                  res.json( {success: false, message: 'Employee Role is required'} );
                } else{
-                 console.log('All data is there in request');
+                 let employee = new Employee({
+                   employeeName: req.body.employeeName,
+                   employeeNumber: req.body.employeeNumber,
+                   employeePassword: req.body.employeePassword,
+                   employeeDesignation: req.body.employeeDesignation,
+                   employeeServiceLine: req.body.employeeServiceLine,
+                   employeeRole: req.body.employeeRole
+                 });
+                 employee.save( (err) =>{
+                   if(err){
+                     if(err.errors){
+                       if(err.errors.employeeName){
+                         res.json( {success: false, message: err.errors.employeeName.message} );
+                       } else {
+                         if(err.errors.employeeNumber){
+                            res.json( {success: false, message: err.errors.employeeNumber.message} );
+                         } else {
+                           if(err.errors.employeePassword){
+                              res.json( {success: false, message: err.errors.employeePassword.message} );
+                           } else {
+                             if(err.errors.employeeDesignation){
+                                res.json( {success: false, message: err.errors.employeeDesignation.message} );
+                             } else {
+                               if(err.errors.employeeServiceLine){
+                                  res.json( {success: false, message: err.errors.employeeServiceLine.message} );
+                               } else {
+                                 if(err.errors.employeeRole){
+                                    res.json( {success: false, message: err.errors.employeeRole.message} );
+                                 } else {
+                                   res.json( {success: false, message: err} );
+                                 }
+                               }
+                             }
+                           }
+                         }
+                       }
+                     } else {
+                       res.json( {success: false,message: 'Could not save Employee', err} );
+                     }
+                   } else{
+                     res.json( {success: true,message: 'Employee Record Created !'} );
+                   }
+                 })
                }
              }
            }
