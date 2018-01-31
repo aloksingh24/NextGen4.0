@@ -1,6 +1,6 @@
 <div class="form-class">
 <h2>SIGN UP</h2>
-<form [formGroup]="registerForm" class="example-form">
+<form [formGroup]="registerForm" class="example-form" (submit)="onSubmit()">
 <!-- Emp Name START -->
 <mat-form-field class="example-full-width">
     <input matInput placeholder="Employee Name" formControlName="employeeName">
@@ -28,7 +28,7 @@
 
 <!-- Emp Password START -->
 <mat-form-field class="example-full-width">
-    <input matInput placeholder="Password" formControlName="employeePassword">
+    <input matInput placeholder="Password" formControlName="employeePassword" type="password">
     <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
  <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
     <mat-error *ngIf="!registerForm.controls.employeePassword?.required">
