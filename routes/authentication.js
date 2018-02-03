@@ -1,3 +1,4 @@
+var mongoose = require('mongoose');
 const Employee = require('../models/employee');
 const config = require('../config/db.js');
  module.exports=(router)=>{
@@ -76,5 +77,19 @@ const config = require('../config/db.js');
        }
      }
    })
+
+   router.get('/dashboard', (req,res) => {
+    
+      let emp = mongoose.model('Employee');
+      emp.find({},function(err,doc){
+          if(err){
+            res.send(err);
+          } else {
+            res.send(doc);
+          }
+      })
+       
+   })
+
    return router;
  }

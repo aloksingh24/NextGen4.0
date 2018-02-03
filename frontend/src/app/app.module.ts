@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { routingComponents } from './app-routing.module';
+import { LoadingModule } from 'ngx-loading';
 
 //Integration of UI
 import { MaterialModule } from './material/material.module';
@@ -17,7 +18,7 @@ import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     AppComponent,
-    routingComponents
+    routingComponents,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +26,8 @@ import { HttpModule } from '@angular/http';
     MaterialModule,
     NoopAnimationsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    LoadingModule
   ],
   providers: [ ServicesService],
   bootstrap: [AppComponent]

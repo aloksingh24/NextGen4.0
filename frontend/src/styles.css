@@ -1,3 +1,4 @@
+
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 .example-form {
@@ -13,4 +14,32 @@
 .form-class{
   margin:6%;
   margin-left: 20%;
+}
+
+.mat-sort-header-button {
+  text-transform: capitalize;
+}
+
+.mat-column-id{
+  width: 20px !important;
+}
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
 }
