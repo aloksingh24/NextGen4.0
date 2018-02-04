@@ -1,3 +1,28 @@
-<p>
-  login works!
-</p>
+<div class="form-class">
+<h2>SIGN IN</h2>
+<form [formGroup]="loginForm" class="example-form" >
+<!-- Emp Number START -->
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="Employee Number" formControlName="employeeNumber">
+    <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
+ <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+    <mat-error *ngIf="!registerForm.controls.employeeNumber?.required">
+      Employee Number is <strong>required</strong>
+    </mat-error>
+</mat-form-field>
+<!-- Emp Number END -->
+
+<!-- Emp Password START -->
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="Password" formControlName="employeePassword" type="password">
+    <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
+ <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+    <mat-error *ngIf="!registerForm.controls.employeePassword?.required">
+      Employee Password is <strong>required</strong>
+    </mat-error>
+</mat-form-field>
+<!-- Emp Password END -->
+
+<input type="submit" class="btn btn-primary" value="Submit" />
+</form>
+</div>
