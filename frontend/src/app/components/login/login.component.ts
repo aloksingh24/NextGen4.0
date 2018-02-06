@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, Validators, FormControl, FormGroupDirective, Ng
 import {ErrorStateMatcher} from '@angular/material/core';
 import { ServicesService } from '../../services.service';
 import { Router } from '@angular/router';
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+// export class MyErrorStateMatcher implements ErrorStateMatcher {
+//   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+//     const isSubmitted = form && form.submitted;
+//     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+//   }
+// }
 
 
 @Component({
@@ -17,7 +17,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  matcher = new MyErrorStateMatcher();
+  //matcher = new MyErrorStateMatcher();
   loginForm: FormGroup;
   processing = false;
   message;
@@ -34,10 +34,25 @@ export class LoginComponent implements OnInit {
   }
   createForm(){
     this.loginForm = this.formBuilder.group({
-      employeeNumber : ['', Validators.required],
+      employeeNumber : ['', Validators.compose([
+        Validators.required,
+        this.validateEmployeeNumber,
+        Validators.minLength(6),
+        Validators.maxLength(10),
+      ])],
       employeePassword : ['', Validators.required],
     });
   }
+
+  validateEmployeeNumber(controls){
+    const regExp = new RegExp(/^[0-9]+$/);
+    if(regExp.test(controls.value)){
+      return null;
+    } else {
+      return {'validateEmployeeNumber': true };
+    }
+  }
+
   diableForm(){
     this.loginForm.controls['employeeNumber'].disable();
     this.loginForm.controls['employeePassword'].disable();
