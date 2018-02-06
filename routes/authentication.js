@@ -39,7 +39,7 @@ const config = require('../config/db.js');
                  employee.save( (err) =>{
                    if(err){
                      if(err.code === 11000){
-                       res.json({success: false, message: 'Employee Name already exists'});
+                       res.json({success: false, message: 'Employee Number already exists'});
                      }
                      if(err.errors){
                        if(err.errors.employeeName){
@@ -96,18 +96,18 @@ const config = require('../config/db.js');
    })
 
    //check for UserName
-     router.get('/checkemployeeName/:employeeName',(req,res) => {
-         if(!req.params.employeeName){
-             res.json({ success: false, message: 'Please provide a Employee Name'});
+     router.get('/checkemployeeNumber/:employeeNumber',(req,res) => {
+         if(!req.params.employeeNumber){
+             res.json({ success: false, message: 'Please provide a Employee Number'});
          } else{
-             Employee.findOne({ userName: req.params.employeeName},(err,emp) => {
+             Employee.findOne({ employeeNumber: req.params.employeeNumber},(err,emp) => {
                  if(err){
                      res.json({ success: false, message: err });
                  } else {
                      if(emp){
-                         res.json({ success: false, message: 'Employee Name is already taken' });
+                         res.json({ success: false, message: 'Employee Number is already taken' });
                      } else{
-                         res.json({ success: true, message: 'Employee Name is available'});
+                         res.json({ success: true, message: 'Employee Number is available'});
                      }
 
                  }

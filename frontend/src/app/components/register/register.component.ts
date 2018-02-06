@@ -19,8 +19,8 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   //matcher = new MyErrorStateMatcher();
   registerForm: FormGroup;
-  empNameAvailable;
-  empNameMessage;
+  empNumberAvailable;
+  empNumberMessage;
   message;
   messageClass;
   processing = false;
@@ -33,6 +33,21 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  //check the Employee Number
+  checkEmployeeNumber(){
+  const employeeNumber = this.registerForm.get('employeeNumber').value;
+  this.authService.checkEmployeeNumber(employeeNumber).subscribe(data => {
+   if(!data.success){
+       this.empNumberAvailable = false;
+       this.empNumberMessage = data.message;
+   } else {
+     this.empNumberAvailable = true;
+     this.empNumberMessage = data.message;
+   }
+ });
+
   }
 
   onSignIn(){
@@ -80,7 +95,7 @@ export class RegisterComponent implements OnInit {
   }
   //Validation of fields START
   validateEmployeeName(controls){
-    const regExp = new RegExp(/^[a-zA-Z]+$/);
+    const regExp = new RegExp(/^[a-zA-Z\-\s]+$/);
     if(regExp.test(controls.value)){
       return null;
     } else {
@@ -107,7 +122,7 @@ export class RegisterComponent implements OnInit {
  }
 
  validateEmployeeDesignation(controls){
-   const regExp = new RegExp(/^[a-zA-Z]+$/);
+   const regExp = new RegExp(/^[a-zA-Z\-\s]+$/);
    if(regExp.test(controls.value)){
      return null;
    } else {
@@ -116,7 +131,7 @@ export class RegisterComponent implements OnInit {
  }
 
  validateEmployeeServiceLine(controls){
-   const regExp = new RegExp(/^[a-zA-Z]+$/);
+   const regExp = new RegExp(/^[a-zA-Z\-\s]+$/);
    if(regExp.test(controls.value)){
      return null;
    } else {
@@ -125,7 +140,7 @@ export class RegisterComponent implements OnInit {
  }
 
  validateEmployeeRole(controls){
-   const regExp = new RegExp(/^[a-zA-Z]+$/);
+   const regExp = new RegExp(/^[a-zA-Z\-\s]+$/);
    if(regExp.test(controls.value)){
      return null;
    } else {
@@ -175,17 +190,17 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
-  checkEmployeeName(){
-    const empName = this.registerForm.get('employeeName').value;
-    this.authService.checkUserName(empName).subscribe(data => {
-      if(!data.success){
-          this.empNameAvailable = false;
-          this.empNameMessage = data.message;
-      } else {
-        this.empNameAvailable = true;
-        this.empNameMessage = data.message;
-      }
-    });
-  }
+  // checkEmployeeName(){
+  //   const empName = this.registerForm.get('employeeName').value;
+  //   this.authService.checkUserName(empName).subscribe(data => {
+  //     if(!data.success){
+  //         this.empNameAvailable = false;
+  //         this.empNameMessage = data.message;
+  //     } else {
+  //       this.empNameAvailable = true;
+  //       this.empNameMessage = data.message;
+  //     }
+  //   });
+  // }
 
 }

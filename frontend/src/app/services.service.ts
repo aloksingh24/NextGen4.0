@@ -20,8 +20,8 @@ export class ServicesService {
       .map(res => res.json());
   }
 
-  checkUserName(empName){
-    return this.http.get('http://localhost:8080/authentication/checkemployeeName/' + empName).map(res => res.json());
+  checkEmployeeNumber(employeeNumber){
+    return this.http.get('http://localhost:8080/authentication/checkemployeeNumber/' + employeeNumber).map(res => res.json());
   }
 
   login(emp){
@@ -40,7 +40,7 @@ export class ServicesService {
    this.authToken = token;
    this.emp = emp;
  }
- 
+
  loggedIn() {
     return tokenNotExpired();
   }
