@@ -133,8 +133,8 @@ const employeeRoleValidators= [{
 },
 ]
 const employeeSchema = new Schema({
-  employeeName: {type: String, required: true,unique: true, validate: employeeNameValidators},
-  employeeNumber: {type: Number, required: true, validate: employeeNumberValidators},
+  employeeName: {type: String, required: true, validate: employeeNameValidators},
+  employeeNumber: {type: Number, required: true,unique: true, validate: employeeNumberValidators},
   employeePassword: {type: String, required: true, validate: employeePasswordValidators},
   employeeDesignation: {type: String, required: true, validate: employeeDesignationValidators},
   employeeServiceLine: {type: String, required: true, validate: employeeServiceLineValidators},

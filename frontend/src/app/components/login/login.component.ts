@@ -32,6 +32,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  onRegisterClick(){
+    this.router.navigate(['/register']);
+  }
   createForm(){
     this.loginForm = this.formBuilder.group({
       employeeNumber : ['', Validators.compose([

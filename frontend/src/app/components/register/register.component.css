@@ -1,3 +1,7 @@
 .example-full-width{
   padding: 1%;
 }
+.block1{
+  display: flex;
+  justify-content: space-between;
+}
