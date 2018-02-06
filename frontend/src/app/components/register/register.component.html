@@ -1,17 +1,27 @@
-<div class="form-class">
+ <div class="form-class">
 <h2>SIGN UP</h2>
+<div class="row show-hide-message">
+  <div [ngClass]="messageClass">
+      {{message}}
+  </div>
+</div>
 <form [formGroup]="registerForm" class="example-form" (submit)="onSubmit()">
 <!-- Emp Name START -->
 <mat-form-field class="example-full-width">
-    <input matInput placeholder="Employee Name" formControlName="employeeName">
+    <input matInput placeholder="Employee Name" formControlName="employeeName" >
     <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
  <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
-    <mat-error *ngIf="!registerForm.controls.employeeName?.required">
+    <mat-error *ngIf="registerForm.get('employeeName').touched && registerForm.get('employeeName').hasError('minlength') || registerForm.get('employeeName').hasError('maxlength')">
+      Minimum Length : 2 and MaxLength is : 30
+    </mat-error>
+    <mat-error *ngIf="registerForm.get('employeeName').touched && registerForm.get('employeeName').hasError('required')">
       Employee Name is <strong>required</strong>
     </mat-error>
-    <mat-error *ngIf="!registerForm.controls.employeeName?.minLength">
-      Minimum Length : 13
+
+    <mat-error *ngIf="registerForm.get('employeeName').touched && registerForm.get('employeeName').hasError('validateEmployeeName')">
+      Enter a <strong>valid</strong> Name
     </mat-error>
+
 </mat-form-field>
 <!-- Emp Name END -->
 
@@ -20,42 +30,70 @@
     <input matInput placeholder="Employee Number" formControlName="employeeNumber">
     <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
  <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
-    <mat-error *ngIf="!registerForm.controls.employeeNumber?.required">
-      Employee Number is <strong>required</strong>
-    </mat-error>
+  <mat-error *ngIf="registerForm.get('employeeNumber').touched && registerForm.get('employeeNumber').hasError('minlength') || registerForm.get('employeeNumber').hasError('maxlength')">
+   Minimum Length : 6 and MaxLength is : 10
+ </mat-error>
+ <mat-error *ngIf="registerForm.get('employeeNumber').touched && registerForm.get('employeeNumber').hasError('required')">
+   Employee Name is <strong>required</strong>
+ </mat-error>
+ <mat-error *ngIf="registerForm.get('employeeNumber').touched && registerForm.get('employeeNumber').hasError('validateEmployeeNumber')">
+   Enter a <strong>valid</strong> Number
+ </mat-error>
 </mat-form-field>
 <!-- Emp Number END -->
 
 <!-- Emp Password START -->
 <mat-form-field class="example-full-width">
-    <input matInput placeholder="Password" formControlName="employeePassword" type="password">
+    <input matInput placeholder="Password" formControlName="employeePassword" type="password" >
     <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
  <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
-    <mat-error *ngIf="!registerForm.controls.employeePassword?.required">
-      Employee Password is <strong>required</strong>
-    </mat-error>
+ <mat-error *ngIf="registerForm.get('employeePassword').touched && registerForm.get('employeePassword').hasError('minlength') || registerForm.get('employeePassword').hasError('maxlength')">
+  Minimum Length : 8 and MaxLength is : 30
+</mat-error>
+<mat-error *ngIf="registerForm.get('employeePassword').touched && registerForm.get('employeePassword').hasError('required')">
+  Employee Name is <strong>required</strong>
+</mat-error>
+<mat-error *ngIf="registerForm.get('employeePassword').touched && registerForm.get('employeePassword').hasError('validateEmployeePassword')">
+  Password should contain
+  1 Uppercase
+  1 LowerCase
+  1 Number
+  1 Special Character
+</mat-error>
 </mat-form-field>
 <!-- Emp Password END -->
 
 <!-- Emp Designation START -->
 <mat-form-field class="example-full-width">
-    <input matInput placeholder="Designation" formControlName="employeeDesignation">
+    <input matInput placeholder="Designation" formControlName="employeeDesignation" >
     <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
  <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
-    <mat-error *ngIf="!registerForm.controls.employeeDesignation?.required">
-      Employee Designation is <strong>required</strong>
-    </mat-error>
+ <mat-error *ngIf="registerForm.get('employeeDesignation').touched && registerForm.get('employeeDesignation').hasError('minlength') || registerForm.get('employeeDesignation').hasError('maxlength')">
+  Minimum Length : 8 and MaxLength is : 30
+</mat-error>
+<mat-error *ngIf="registerForm.get('employeeDesignation').touched && registerForm.get('employeeDesignation').hasError('required')">
+  Employee Name is <strong>required</strong>
+</mat-error>
+<mat-error *ngIf="registerForm.get('employeeDesignation').touched && registerForm.get('employeeDesignation').hasError('validateEmployeeDesignation')">
+  Enter a <strong>valid</strong> Designation
+</mat-error>
 </mat-form-field>
 <!-- Emp Designation END -->
 
 <!-- Emp Service Line START -->
 <mat-form-field class="example-full-width">
-    <input matInput placeholder="Service Line" formControlName="employeeServiceLine">
+    <input matInput placeholder="Service Line" formControlName="employeeServiceLine"  >
     <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
  <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
-    <mat-error *ngIf="!registerForm.controls.employeeServiceLine?.required">
-      Employee Service Line is <strong>required</strong>
-    </mat-error>
+ <mat-error *ngIf="registerForm.get('employeeServiceLine').touched && registerForm.get('employeeServiceLine').hasError('minlength') || registerForm.get('employeeServiceLine').hasError('maxlength')">
+  Minimum Length : 2 and MaxLength is : 30
+</mat-error>
+<mat-error *ngIf="registerForm.get('employeeServiceLine').touched && registerForm.get('employeeServiceLine').hasError('required')">
+  Employee Name is <strong>required</strong>
+  <mat-error *ngIf="registerForm.get('employeeServiceLine').touched && registerForm.get('employeeServiceLine').hasError('validateEmployeeServiceLine')">
+    Enter a <strong>valid</strong> Service Line
+  </mat-error>
+</mat-error>
 </mat-form-field>
 <!-- Emp Service Line END -->
 
@@ -64,12 +102,18 @@
     <input matInput placeholder="Role" formControlName="employeeRole">
     <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
  <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
-    <mat-error *ngIf="!registerForm.controls.employeeRole?.required">
-      Employee Role <strong>required</strong>
-    </mat-error>
+ <mat-error *ngIf="registerForm.get('employeeRole').touched && registerForm.get('employeeRole').hasError('minlength') || registerForm.get('employeeRole').hasError('maxlength')">
+  Minimum Length : 2 and MaxLength is : 30
+</mat-error>
+<mat-error *ngIf="registerForm.get('employeeRole').touched && registerForm.get('employeeRole').hasError('required')">
+  Employee Name is <strong>required</strong>
+</mat-error>
+<mat-error *ngIf="registerForm.get('employeeRole').touched && registerForm.get('employeeRole').hasError('validateEmployeeRole')">
+  Enter a <strong>valid</strong> Role
+</mat-error>
 </mat-form-field>
 <!-- Emp Role END -->
 
-<input type="submit" class="btn btn-primary" value="Submit" />
+<input [disabled]="!registerForm.valid || processing" type="submit" class="btn btn-primary" value="Submit" />
 </form>
 </div>

@@ -19,11 +19,16 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class LoginComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   loginForm: FormGroup;
+  processing = false;
+  message;
+  messageClass;
   constructor(
     private formBuilder: FormBuilder,
     private authService: ServicesService,
     private router: Router
-  ) { }
+  ) {
+    this.createForm();
+  }
 
   ngOnInit() {
   }
@@ -31,6 +36,37 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       employeeNumber : ['', Validators.required],
       employeePassword : ['', Validators.required],
+    });
+  }
+  diableForm(){
+    this.loginForm.controls['employeeNumber'].disable();
+    this.loginForm.controls['employeePassword'].disable();
+  }
+  enableForm(){
+    this.loginForm.controls['employeeNumber'].enable();
+    this.loginForm.controls['employeePassword'].enable();
+  }
+  loginSubmit(){
+    this.processing = false;
+    this.diableForm();
+    const employee = {
+      employeeNumber: this.loginForm.get('employeeNumber').value,
+      employeePassword: this.loginForm.get('employeePassword').value
+    }
+    this.authService.login(employee).subscribe(data =>{
+      if(!data.success){
+        this.messageClass = 'alert alert-danger';
+        this.message = data.message;
+        this.processing = true;
+        this.enableForm();
+      }else{
+        this.messageClass = 'alert alert-success';
+        this.message = data.message;
+        this.authService.storeEmpData(data.token, data.emp);
+        setTimeout(() =>{
+          this.router.navigate(['/dashboard']);
+        },2000);
+      }
     });
   }
 

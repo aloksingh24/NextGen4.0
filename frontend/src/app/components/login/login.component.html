@@ -1,12 +1,17 @@
 <div class="form-class">
 <h2>SIGN IN</h2>
-<form [formGroup]="loginForm" class="example-form" >
+<div class="row show-hide-message">
+  <div [ngClass]="messageClass">
+      {{message}}
+  </div>
+</div>
+<form [formGroup]="loginForm" class="example-form" (submit)="loginSubmit()">
 <!-- Emp Number START -->
 <mat-form-field class="example-full-width">
     <input matInput placeholder="Employee Number" formControlName="employeeNumber">
     <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
  <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
-    <mat-error *ngIf="!registerForm.controls.employeeNumber?.required">
+    <mat-error *ngIf="!loginForm.controls.employeeNumber?.required">
       Employee Number is <strong>required</strong>
     </mat-error>
 </mat-form-field>
@@ -17,12 +22,12 @@
     <input matInput placeholder="Password" formControlName="employeePassword" type="password">
     <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
  <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
-    <mat-error *ngIf="!registerForm.controls.employeePassword?.required">
+    <mat-error *ngIf="!loginForm.controls.employeePassword?.required">
       Employee Password is <strong>required</strong>
     </mat-error>
 </mat-form-field>
 <!-- Emp Password END -->
 
-<input type="submit" class="btn btn-primary" value="Submit" />
+<input [disabled]="!loginForm.valid || processing" type="submit" class="btn btn-primary" value="Submit" />
 </form>
 </div>

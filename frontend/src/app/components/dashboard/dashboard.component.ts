@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
 import { ServicesService } from '../../services.service';
+import { Router } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +19,11 @@ export class DashboardComponent {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private authService: ServicesService) {
+  constructor(
+    private authService: ServicesService,
+    private router: Router,
+    private flashMessagesService: FlashMessagesService
+  ) {
     this.authService.getDashboardData()
     .subscribe(data => {
       if (data) {
@@ -49,9 +55,10 @@ export class DashboardComponent {
     this.dataSource.filter = filterValue;
   }
 
+  onLogOut(){
+    this.authService.logout();
+    this.flashMessagesService.show('You are logged out',{cssClass: 'alert-info'} );
+    this.router.navigate(['/login']);
+  }
+
 }
-
-
-
-
-
