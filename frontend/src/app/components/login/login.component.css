@@ -1,0 +1,7 @@
+.example-form,.form-class{
+  margin-top: 5%;
+}
+.block1{
+  display: flex;
+  justify-content: space-between;
+}

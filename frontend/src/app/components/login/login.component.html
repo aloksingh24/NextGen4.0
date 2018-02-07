@@ -1,3 +1,43 @@
-<p>
-  login works!
-</p>
+<div class="form-class">
+<div class="block1">
+<h2>SIGN IN</h2>
+<button mat-raised-button color="primary" (click)="onRegisterClick()">SIGN UP</button>
+</div>
+<div class="row show-hide-message">
+  <div [ngClass]="messageClass">
+      {{message}}
+  </div>
+</div>
+<form [formGroup]="loginForm" class="example-form" (submit)="loginSubmit()">
+<!-- Emp Number START -->
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="Employee Number" formControlName="employeeNumber">
+    <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
+ <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+ <mat-error *ngIf=" loginForm.get('employeeNumber').touched &&  loginForm.get('employeeNumber').hasError('minlength') ||  loginForm.get('employeeNumber').hasError('maxlength')">
+  Minimum Length : 6 and MaxLength is : 10
+</mat-error>
+ <mat-error *ngIf=" loginForm.get('employeeNumber').touched &&  loginForm.get('employeeNumber').hasError('required')">
+   Employee Name is <strong>required</strong>
+ </mat-error>
+ <mat-error *ngIf=" loginForm.get('employeeNumber').touched &&  loginForm.get('employeeNumber').hasError('validateEmployeeNumber')">
+   Enter a <strong>valid</strong> Number
+ </mat-error>
+ </mat-form-field>
+<!-- Emp Number END -->
+
+<!-- Emp Password START -->
+<mat-form-field class="example-full-width">
+    <input matInput placeholder="Password" formControlName="employeePassword" type="password">
+    <!-- <span matPrefix><img src="assets/images/tshirt/image.png" /></span> -->
+ <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+ <mat-error *ngIf=" loginForm.get('employeePassword').touched &&  loginForm.get('employeePassword').hasError('required')">
+   Employee Name is <strong>required</strong>
+ </mat-error>
+ </mat-form-field>
+
+<!-- Emp Password END -->
+
+<input [disabled]="!loginForm.valid || processing" type="submit" class="btn btn-primary" value="Submit" />
+</form>
+</div>

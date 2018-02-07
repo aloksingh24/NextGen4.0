@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 const Employee = require('../models/employee');
+const jwt = require('jsonwebtoken');
 const config = require('../config/db.js');
  module.exports=(router)=>{
    router.post('/register', (req,res) => {
@@ -37,6 +38,9 @@ const config = require('../config/db.js');
                  });
                  employee.save( (err) =>{
                    if(err){
+                     if(err.code === 11000){
+                       res.json({success: false, message: 'Employee Number already exists'});
+                     }
                      if(err.errors){
                        if(err.errors.employeeName){
                          res.json( {success: false, message: err.errors.employeeName.message} );
@@ -79,7 +83,7 @@ const config = require('../config/db.js');
    })
 
    router.get('/dashboard', (req,res) => {
-    
+
       let emp = mongoose.model('Employee');
       emp.find({},function(err,doc){
           if(err){
@@ -88,8 +92,57 @@ const config = require('../config/db.js');
             res.send(doc);
           }
       })
-       
+
    })
+
+   //check for UserName
+     router.get('/checkemployeeNumber/:employeeNumber',(req,res) => {
+         if(!req.params.employeeNumber){
+             res.json({ success: false, message: 'Please provide a Employee Number'});
+         } else{
+             Employee.findOne({ employeeNumber: req.params.employeeNumber},(err,emp) => {
+                 if(err){
+                     res.json({ success: false, message: err });
+                 } else {
+                     if(emp){
+                         res.json({ success: false, message: 'Employee Number is already taken' });
+                     } else{
+                         res.json({ success: true, message: 'Employee Number is available'});
+                     }
+
+                 }
+             })
+         }
+     });
+
+     // Login
+     router.post('/login', (req,res) =>{
+       if(!req.body.employeeNumber){
+         res.json({success: false, message: 'Employee Number is required'});
+       } else{
+         if(!req.body.employeePassword){
+           res.json({success: false, message: 'Employee Password is required'});
+         } else{
+           Employee.findOne({ employeeNumber: req.body.employeeNumber}, (err,emp) =>{
+             if(err){
+               res.json({success: false, message: err});
+             }else{
+               if(!emp){
+                 res.json({success: false, message: 'Employee not found'});
+               }else{
+                 const isValidPassword = emp.comparePassword(req.body.employeePassword);
+                 if(!isValidPassword){
+                   res.json({success:false, message: 'Invalid Password'});
+                 }else{
+                   const token = jwt.sign({userId: emp._id}, config.secert, {expiresIn: '24h' });
+                   res.json({ success: true, message: 'Success !!', token: token, emp: {employeeName: emp.employeeName} });
+                 }
+               }
+             }
+           });
+         }
+       }
+     });
 
    return router;
  }

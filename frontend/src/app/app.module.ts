@@ -14,6 +14,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //ServicesService
 import { ServicesService } from './services.service';
 import { HttpModule } from '@angular/http';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { AuthGuard } from './guards/auth.guard';
+import { NotAuthGuard } from './guards/notAuth.guard';
 
 @NgModule({
   declarations: [
@@ -27,9 +30,10 @@ import { HttpModule } from '@angular/http';
     NoopAnimationsModule,
     ReactiveFormsModule,
     HttpModule,
-    LoadingModule
+    LoadingModule,
+    FlashMessagesModule.forRoot(),
   ],
-  providers: [ ServicesService],
+  providers: [ ServicesService, AuthGuard, NotAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
